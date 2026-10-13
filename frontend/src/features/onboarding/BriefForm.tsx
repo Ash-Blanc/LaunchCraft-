@@ -3,6 +3,7 @@
 import { useRouter } from "next/navigation";
 import { useState, type FormEvent } from "react";
 import { Button, Notice, SelectField, TextArea, TextField, cx } from "@/components/ui";
+import { ShineBorder } from "@/components/ui/shine-border";
 import { api, ApiError, errorMessage } from "@/lib/api";
 import { CURRENCIES } from "@/lib/money";
 import { THEMES } from "@/features/storefront/theme";
@@ -130,9 +131,12 @@ export function BriefForm({ initial }: { initial?: BusinessBrief | null }) {
       {error && <Notice tone="error" title="The draft wasn't created">{error}</Notice>}
 
       <div className="flex flex-wrap items-center gap-4 border-t border-rule pt-6">
-        <Button type="submit" variant="stamp" busy={busy} className="h-12 px-6 text-base">
-          {busy ? "Drafting your store" : "Draft my store"}
-        </Button>
+        <span className="relative inline-flex rounded-sm">
+          <Button type="submit" variant="stamp" busy={busy} className="h-12 px-6 text-base">
+            {busy ? "Drafting your store" : "Draft my store"}
+          </Button>
+          <ShineBorder shineColor={["#2a45c2", "#939cdf", "#2a45c2"]} duration={9} />
+        </span>
         <p className="max-w-[40ch] text-xs text-ink-2">
           You&apos;ll review the draft before anything is saved.
         </p>

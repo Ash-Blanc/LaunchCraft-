@@ -1,8 +1,11 @@
 "use client";
 
 import Link from "next/link";
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
+import { toast } from "sonner";
 import { Button, Notice, Wordmark, cx } from "@/components/ui";
+import { Badge } from "@/components/ui/badge";
+import { BorderBeam } from "@/components/ui/border-beam";
 import { LaunchDocket } from "@/features/launch-readiness/LaunchDocket";
 import { BrandEditor } from "@/features/store-editor/BrandEditor";
 import { CatalogueList } from "@/features/store-editor/CatalogueList";
@@ -40,9 +43,7 @@ export function Workspace({ storeId }: { storeId: string }) {
   const [thread, setThread] = useState<ThreadItem[]>([]);
   const [running, setRunning] = useState<AgentAction | "message" | null>(null);
   const [proposalBusy, setProposalBusy] = useState<{ id: string; kind: "accept" | "reject" } | null>(null);
-  const [toast, setToast] = useState<string | null>(null);
   const [recentId, setRecentId] = useState<string | null>(null);
-  const toastTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const refresh = useCallback(async () => {
     try {
@@ -69,13 +70,8 @@ export function Workspace({ storeId }: { storeId: string }) {
     return () => { live = false; };
   }, [storeId]);
 
-  useEffect(() => () => { if (toastTimer.current) clearTimeout(toastTimer.current); }, []);
-
   function flash(message: string) {
-    if (!message) return;
-    setToast(message);
-    if (toastTimer.current) clearTimeout(toastTimer.current);
-    toastTimer.current = setTimeout(() => setToast(null), 3200);
+    if (message) toast.success(message);
   }
 
   // --- the preview shows unsaved edits on top of saved data ---------------------------
@@ -184,7 +180,7 @@ export function Workspace({ storeId }: { storeId: string }) {
       setReport(r);
       await refresh();
     } catch (e) {
-      flash(errorMessage(e));
+      toast.error(errorMessage(e));
     } finally {
       setRunning(null);
     }
@@ -216,9 +212,11 @@ export function Workspace({ storeId }: { storeId: string }) {
         <h1 className="min-w-0 truncate text-sm font-semibold">{store.name}</h1>
         <div className="ml-auto flex items-center gap-3">
           {report && (
-            <span className={cx("hidden text-xs font-medium sm:inline", report.ready ? "text-pass" : "text-fail")}>
+            <Badge variant="outline"
+              className={cx("hidden rounded-xs font-medium sm:inline-flex",
+                report.ready ? "border-pass/40 bg-pass-wash text-pass" : "border-fail/40 bg-fail-wash text-fail")}>
               {report.ready ? "Ready to launch" : "Not ready to launch"}
-            </span>
+            </Badge>
           )}
           <a href={`/store/${store.id}`} target="_blank" rel="noopener noreferrer"
             className="text-sm underline decoration-rule-strong underline-offset-4 hover:decoration-ink">
@@ -234,7 +232,9 @@ export function Workspace({ storeId }: { storeId: string }) {
             className={cx("h-10 flex-1 text-sm capitalize", p === "assistant" && "lg:hidden",
               pane === p ? "border-b-2 border-ink font-semibold" : "text-ink-2")}>
             {p === "edit" ? "Edit" : p}
-            {p === "assistant" && pending.length > 0 && <span className="ml-1 text-stamp">({pending.length})</span>}
+            {p === "assistant" && pending.length > 0 && (
+              <Badge className="ml-1.5 rounded-xs border-stamp/30 bg-stamp-wash px-1.5 text-2xs font-semibold text-stamp-ink">{pending.length}</Badge>
+            )}
           </button>
         ))}
       </nav>
@@ -281,20 +281,16 @@ export function Workspace({ storeId }: { storeId: string }) {
         </section>
 
         <section aria-label="Storefront preview"
-          className={cx("min-h-0 flex-col xl:flex", pane === "preview" ? "flex" : "hidden")}>
+          className={cx("relative min-h-0 flex-col xl:flex", pane === "preview" ? "flex" : "hidden")}>
           <PreviewFrame store={previewStore} focusSlug={tab === "products" ? focusSlug : null}
             highlightProductId={recentId}
             caption={unsaved
               ? <span className="font-medium text-stamp">Showing unsaved changes</span>
               : <span>Live preview</span>} />
+          {unsaved && <BorderBeam size={260} duration={8} colorFrom="#2a45c2" colorTo="#939cdf" />}
         </section>
       </div>
 
-      <div aria-live="polite" className="pointer-events-none fixed inset-x-0 bottom-5 flex justify-center px-4">
-        {toast && (
-          <p className="rounded-sm bg-ink px-4 py-2.5 text-sm text-paper shadow-[var(--shadow-pop)]">{toast}</p>
-        )}
-      </div>
       {loadError && store && (
         <div className="fixed bottom-5 right-5 max-w-sm">
           <Notice tone="error" title="Couldn't refresh the workspace">{loadError.message}</Notice>

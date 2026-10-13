@@ -66,7 +66,13 @@ export function ProposalCard({ proposal, onAccept, onReject, busy }: {
   return (
     <article className="rounded-sm border border-stamp/35 bg-sheet" aria-label={`Suggestion: ${proposal.summary}`}>
       <header className="border-b border-rule px-3.5 py-2.5">
-        <p className="text-xs text-stamp">Suggested change, waiting for you</p>
+        <p className="flex items-center gap-1.5 text-xs text-stamp">
+          <span aria-hidden className="relative flex size-1.5">
+            <span className="absolute inline-flex size-full animate-ping rounded-full bg-stamp opacity-60" />
+            <span className="relative inline-flex size-1.5 rounded-full bg-stamp" />
+          </span>
+          Suggested change, waiting for you
+        </p>
         <h3 className="mt-0.5 text-sm font-semibold">{proposal.summary}</h3>
       </header>
       <div className="flex flex-col gap-4 px-3.5 py-3">
