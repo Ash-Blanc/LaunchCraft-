@@ -1,6 +1,8 @@
 "use client";
 
 import { Button, cx } from "@/components/ui";
+import { NumberTicker } from "@/components/ui/number-ticker";
+import { Progress } from "@/components/ui/progress";
 import type { CheckStatus, LaunchReport } from "@/types/api";
 
 const STATUS: Record<CheckStatus, { label: string; mark: string; tone: string }> = {
@@ -24,6 +26,9 @@ export function LaunchDocket({ report, storeName, onRun, running }: {
     (acc, r) => ({ ...acc, [r.status]: acc[r.status] + 1 }),
     { pass: 0, fail: 0, warn: 0, not_run: 0 },
   );
+  const required = report?.results.filter((r) => r.required) ?? [];
+  const requiredPassed = required.filter((r) => r.status === "pass").length;
+  const requiredPct = required.length ? Math.round((requiredPassed / required.length) * 100) : 0;
 
   return (
     <div className="mx-auto w-full max-w-xl">
@@ -48,6 +53,16 @@ export function LaunchDocket({ report, storeName, onRun, running }: {
               </div>
             )}
           </div>
+
+          {report && (
+            <div className="border-b border-dashed border-rule-strong pb-5 pt-4">
+              <Progress value={requiredPct} aria-label={`${requiredPct}% of required checks passed`}
+                className={cx("h-1.5 rounded-xs bg-panel", report.ready && "[&_[data-slot=progress-indicator]]:bg-pass")} />
+              <p className="tabular mt-2 text-xs text-ink-2">
+                <NumberTicker value={requiredPassed} className="tabular" /> of {required.length} required checks passed
+              </p>
+            </div>
+          )}
 
           {!report ? (
             <div className="py-10 text-center">
@@ -86,7 +101,11 @@ export function LaunchDocket({ report, storeName, onRun, running }: {
                 })}
               </ol>
               <div className="tabular flex items-center justify-between border-t border-dashed border-rule-strong pt-4 text-xs text-ink-2">
-                <span>{counts!.pass} passed, {counts!.fail} failed, {counts!.not_run} not run</span>
+                <span>
+                  <NumberTicker value={counts!.pass} className="tabular" /> passed,{" "}
+                  <NumberTicker value={counts!.fail} className="tabular" /> failed,{" "}
+                  <NumberTicker value={counts!.not_run} className="tabular" /> not run
+                </span>
                 <Button variant="secondary" size="sm" onClick={onRun} busy={running}>Run again</Button>
               </div>
             </>

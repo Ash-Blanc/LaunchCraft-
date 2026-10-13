@@ -14,7 +14,18 @@ From a business idea to a store ready to sell: an AI store-launch workspace with
 | 4 | Live-model assistant with typed tools (demo mode stays as fallback) | Interface in place, not started |
 | 5 | Polish, accessibility audit, clean-setup verification | Not started |
 
-**Checks run for this phase:** 84 backend tests pass; TypeScript, ESLint and `next build` are clean; a scripted headless-Chrome walkthrough (brief → draft → accept → suggest and apply → edit with validation → brand → launch checks → chat → storefront → cart, at desktop and phone widths) runs with no console errors.
+**Checks run for this phase:** 84 backend tests pass; TypeScript, ESLint and `next build` are clean; a scripted headless-Chrome walkthrough (brief → draft → accept → suggest and apply → edit with validation → brand → launch checks → chat → storefront → cart, at desktop and phone widths) runs with no console errors. The presentation layer below was verified end to end against a live backend (draft → accept → workspace → storefront → launch checks → message routing → suggest and apply, all over HTTP).
+
+## Presentation layer (shadcn/ui + Magic UI + 21st.dev)
+
+shadcn/ui is initialised in the frontend with **every token remapped onto the house palette** (paper, ink, stamp blue — see `globals.css`), so library components look native rather than pasted on. Sources are vendored and owned, per the shadcn model.
+
+- **shadcn/ui**: `badge` (launch-readiness and pending-suggestion counts), `tooltip` (the demo-mode source tag), `sonner` (workspace toasts, light theme), `progress` + `separator`.
+- **Magic UI** (free `@magicui` registry): `typing-animation` (landing brief ticker cycling real example briefs), `marquee` (the five storefront looks strip, pause on hover), `number-ticker` (stats strip and docket counts), `shine-border` (the *Draft my store* CTA), `border-beam` (traces the live-preview pane while unsaved edits are showing).
+- **21st.dev Agent Elements** (free registry, no auth): `spiral-loader` + `text-shimmer` (the assistant's *Working* state) and `suggestions` (one-click chat prompts above the input, routed through the message API). `--an-*` tokens remapped to the palette as well.
+- The launch docket gained a required-checks **progress bar**; proposal cards gained a pulsing "waiting for you" dot.
+- `lottie-react` is pinned to `2.4.1` (the version Agent Elements targets; v3 changed the API).
+- All motion respects the existing `prefers-reduced-motion` global override.
 
 ## What works now
 
