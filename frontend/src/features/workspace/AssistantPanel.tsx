@@ -2,6 +2,9 @@
 
 import { useEffect, useRef, useState, type FormEvent } from "react";
 import { Button, Notice, cx } from "@/components/ui";
+import { Suggestions, type SuggestionItem } from "@/components/agent-elements/input/suggestions";
+import { SpiralLoader } from "@/components/agent-elements/spiral-loader";
+import { TextShimmer } from "@/components/agent-elements/text-shimmer";
 import type { ActivityEntry, AgentAction, AgentSource, ChangesProposal } from "@/types/api";
 import { ProposalCard } from "./ProposalCard";
 import { SourceTag } from "./SourceTag";
@@ -18,6 +21,13 @@ const ACTIONS: { action: AgentAction; label: string; hint: string }[] = [
   { action: "suggest_product", label: "Suggest a product", hint: "Proposes one new item for your review" },
   { action: "fill_missing_details", label: "Fill in missing details", hint: "Descriptions, images and alt text" },
   { action: "run_launch_checks", label: "Run launch checks", hint: "Records what passes and what doesn't" },
+];
+
+/** One-click chat prompts; the message router maps each to a tool. */
+const PROMPTS: SuggestionItem[] = [
+  { id: "p-launch", label: "Are we ready to launch?" },
+  { id: "p-missing", label: "What's missing from my catalogue?" },
+  { id: "p-warmer", label: "Make the brand feel warmer" },
 ];
 
 export function AssistantPanel({
@@ -87,7 +97,12 @@ export function AssistantPanel({
                       <span className="block text-sm font-medium">{a.label}</span>
                       <span className="block text-xs text-ink-2">{a.hint}</span>
                     </span>
-                    {runningAction === a.action && <span className="text-xs text-ink-2">Working</span>}
+                    {runningAction === a.action && (
+                      <span className="flex items-center gap-1.5 text-xs text-ink-2">
+                        <SpiralLoader size={13} />
+                        <TextShimmer as="span" duration={2}>Working</TextShimmer>
+                      </span>
+                    )}
                   </button>
                 </li>
               ))}
@@ -119,6 +134,10 @@ export function AssistantPanel({
           </div>
 
           <form onSubmit={send} className="border-t border-rule p-3">
+            <Suggestions items={PROMPTS} disabled={runningAction !== null}
+              onSelect={(item) => { void onMessage(item.label); }}
+              className="mb-2.5"
+              itemClassName="rounded-xs border-rule-strong bg-sheet text-xs hover:bg-stamp-wash hover:text-stamp-ink" />
             <label htmlFor="assistant-input" className="sr-only">Ask the assistant</label>
             <div className="flex gap-2">
               <input id="assistant-input" value={text} onChange={(e) => setText(e.target.value)} maxLength={1000}
