@@ -1,5 +1,8 @@
 import { Wordmark } from "@/components/ui";
 import { BriefFormMount, SystemStatus } from "@/features/onboarding/OnboardingClient";
+import { BriefTicker } from "@/features/onboarding/BriefTicker";
+import { LookMarquee } from "@/features/onboarding/LookMarquee";
+import { StatRow } from "@/features/onboarding/StatRow";
 
 const STEPS = [
   ["Describe the business", "A name, what you sell and who for. A rough idea is enough."],
@@ -24,6 +27,9 @@ export default function Onboarding() {
               Launchcraft drafts a storefront and catalogue from your brief, lets you change every detail,
               and only calls the store ready once its checks have actually passed.
             </p>
+            <div className="mt-6">
+              <BriefTicker />
+            </div>
           </div>
 
           <ol className="flex flex-col gap-5">
@@ -45,6 +51,9 @@ export default function Onboarding() {
           <BriefFormMount />
         </section>
       </div>
+
+      <StatRow />
+      <LookMarquee />
     </div>
   );
 }
