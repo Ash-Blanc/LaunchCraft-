@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" role="img" aria-label="Serving plate">
+<title>Serving plate</title>
+<defs>
+<filter id="grain" x="0" y="0" width="100%" height="100%">
+<feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" seed="4"/>
+<feColorMatrix values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.09 0"/>
+</filter>
+</defs>
+<rect width="800" height="800" fill="#E4E1DA"/>
+<rect y="560" width="800" height="240" fill="#CFC9BD"/>
+<ellipse cx="400" cy="560" rx="300" ry="50" fill="#000" opacity="0.12"/><ellipse cx="400" cy="480" rx="300" ry="90" fill="#EFE8DA"/><ellipse cx="400" cy="480" rx="190" ry="54" fill="#E4E1DA" opacity="0.6"/><ellipse cx="400" cy="490" rx="300" ry="90" fill="none" stroke="#B9B2A3" stroke-width="3"/>
+<rect width="800" height="800" filter="url(#grain)"/>
+</svg>

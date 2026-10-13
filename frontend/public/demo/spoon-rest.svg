@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" role="img" aria-label="Spoon rest">
+<title>Spoon rest</title>
+<defs>
+<filter id="grain" x="0" y="0" width="100%" height="100%">
+<feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" seed="4"/>
+<feColorMatrix values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.09 0"/>
+</filter>
+</defs>
+<rect width="800" height="800" fill="#E4E1DA"/>
+<rect y="560" width="800" height="240" fill="#CFC9BD"/>
+<ellipse cx="400" cy="560" rx="220" ry="40" fill="#000" opacity="0.12"/><ellipse cx="400" cy="500" rx="220" ry="70" fill="#1F5F5B"/><ellipse cx="400" cy="492" rx="180" ry="48" fill="#22201C" opacity="0.25"/><g transform="rotate(-14 400 470)"><ellipse cx="300" cy="470" rx="70" ry="34" fill="#8C6A4F"/><rect x="360" y="460" width="340" height="20" rx="10" fill="#8C6A4F"/></g>
+<rect width="800" height="800" filter="url(#grain)"/>
+</svg>

@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" role="img" aria-label="Parcel">
+<title>Parcel</title>
+<defs>
+<filter id="grain" x="0" y="0" width="100%" height="100%">
+<feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" seed="4"/>
+<feColorMatrix values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.09 0"/>
+</filter>
+</defs>
+<rect width="800" height="800" fill="#E6E2DA"/>
+<rect y="560" width="800" height="240" fill="#D2CCC0"/>
+<ellipse cx="400" cy="592" rx="240" ry="28.799999999999997" fill="#000" opacity="0.12"/><path d="M 190 330 L 400 260 L 610 330 L 610 560 L 400 600 L 190 560 Z" fill="#A88B62"/><path d="M 190 330 L 400 390 L 610 330" fill="none" stroke="#22201C" stroke-width="2" opacity="0.4"/><path d="M 400 390 L 400 600" stroke="#22201C" stroke-width="2" opacity="0.4"/><path d="M 295 295 L 505 360 L 505 580 M 505 295 L 295 360 L 295 580" stroke="#F2EEE6" stroke-width="7" fill="none"/>
+<rect width="800" height="800" filter="url(#grain)"/>
+</svg>

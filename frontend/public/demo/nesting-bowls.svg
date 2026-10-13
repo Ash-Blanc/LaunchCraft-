@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" role="img" aria-label="Nesting bowls">
+<title>Nesting bowls</title>
+<defs>
+<filter id="grain" x="0" y="0" width="100%" height="100%">
+<feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" seed="4"/>
+<feColorMatrix values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.09 0"/>
+</filter>
+</defs>
+<rect width="800" height="800" fill="#E4E1DA"/>
+<rect y="560" width="800" height="240" fill="#CFC9BD"/>
+<ellipse cx="400" cy="588" rx="250" ry="30.0" fill="#000" opacity="0.12"/><path d="M 150 360 Q 150 580 400 580 Q 650 580 650 360 Z" fill="#B9B2A3"/><ellipse cx="400" cy="360" rx="250" ry="40.0" fill="#22201C" opacity="0.18"/><path d="M 210 400 Q 210 580 400 580 Q 590 580 590 400 Z" fill="#EFE8DA"/><ellipse cx="400" cy="400" rx="190" ry="30.400000000000002" fill="#22201C" opacity="0.18"/><path d="M 270 440 Q 270 580 400 580 Q 530 580 530 440 Z" fill="#1F5F5B"/><ellipse cx="400" cy="440" rx="130" ry="20.8" fill="#22201C" opacity="0.18"/>
+<rect width="800" height="800" filter="url(#grain)"/>
+</svg>

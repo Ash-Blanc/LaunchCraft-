@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" role="img" aria-label="Linen envelopes">
+<title>Linen envelopes</title>
+<defs>
+<filter id="grain" x="0" y="0" width="100%" height="100%">
+<feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" seed="4"/>
+<feColorMatrix values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.09 0"/>
+</filter>
+</defs>
+<rect width="800" height="800" fill="#E7E3D3"/>
+<rect y="560" width="800" height="240" fill="#D6D0BC"/>
+<ellipse cx="400" cy="600" rx="280" ry="33.6" fill="#000" opacity="0.12"/><g transform="rotate(-16 400 600)"><rect x="200" y="290" width="400" height="270" fill="#F3EFE2" stroke="#B9A27A" stroke-width="2"/><path d="M 200 290 L 400 420 L 600 290" fill="none" stroke="#B9A27A" stroke-width="2"/></g><g transform="rotate(-6 400 600)"><rect x="200" y="290" width="400" height="270" fill="#F3EFE2" stroke="#B9A27A" stroke-width="2"/><path d="M 200 290 L 400 420 L 600 290" fill="none" stroke="#B9A27A" stroke-width="2"/></g><g transform="rotate(4 400 600)"><rect x="200" y="290" width="400" height="270" fill="#F3EFE2" stroke="#B9A27A" stroke-width="2"/><path d="M 200 290 L 400 420 L 600 290" fill="none" stroke="#B9A27A" stroke-width="2"/></g><g transform="rotate(14 400 600)"><rect x="200" y="290" width="400" height="270" fill="#F3EFE2" stroke="#B9A27A" stroke-width="2"/><path d="M 200 290 L 400 420 L 600 290" fill="none" stroke="#B9A27A" stroke-width="2"/></g>
+<rect width="800" height="800" filter="url(#grain)"/>
+</svg>

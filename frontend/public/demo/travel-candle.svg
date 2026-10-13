@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" role="img" aria-label="Travel candle">
+<title>Travel candle</title>
+<defs>
+<filter id="grain" x="0" y="0" width="100%" height="100%">
+<feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" seed="4"/>
+<feColorMatrix values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.09 0"/>
+</filter>
+</defs>
+<rect width="800" height="800" fill="#E9E1DD"/>
+<rect y="560" width="800" height="240" fill="#D5C9C3"/>
+<ellipse cx="400" cy="588" rx="200" ry="24.0" fill="#000" opacity="0.12"/><path d="M 230 470 L 230 550 Q 400 600 570 550 L 570 470 Z" fill="#9BA383"/><ellipse cx="400" cy="470" rx="170" ry="44" fill="#F4EEE8"/><ellipse cx="400" cy="470" rx="140" ry="32" fill="#B2722E" opacity="0.7"/><line x1="400" y1="470" x2="400" y2="440" stroke="#231C22" stroke-width="4"/><g transform="rotate(14 600 360)"><ellipse cx="560" cy="360" rx="170" ry="44" fill="#6B2C5C"/></g>
+<rect width="800" height="800" filter="url(#grain)"/>
+</svg>

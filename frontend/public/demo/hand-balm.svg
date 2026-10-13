@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" role="img" aria-label="Hand balm">
+<title>Hand balm</title>
+<defs>
+<filter id="grain" x="0" y="0" width="100%" height="100%">
+<feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" seed="4"/>
+<feColorMatrix values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.09 0"/>
+</filter>
+</defs>
+<rect width="800" height="800" fill="#E9E1DD"/>
+<rect y="560" width="800" height="240" fill="#D5C9C3"/>
+<ellipse cx="380" cy="590" rx="190" ry="22.8" fill="#000" opacity="0.12"/><g transform="rotate(-12 560 420)"><ellipse cx="560" cy="440" rx="130" ry="130" fill="#9BA383"/><ellipse cx="560" cy="440" rx="96" ry="96" fill="none" stroke="#F4EEE8" stroke-width="4"/></g><path d="M 220 470 L 220 550 Q 340 600 460 550 L 460 470 Z" fill="#9BA383"/><ellipse cx="340" cy="470" rx="120" ry="34" fill="#F4EEE8"/><path d="M 270 470 Q 330 450 400 470" stroke="#B2722E" stroke-width="6" fill="none" opacity="0.5"/>
+<rect width="800" height="800" filter="url(#grain)"/>
+</svg>

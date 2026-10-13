@@ -1,0 +1,144 @@
+@import "tailwindcss";
+
+/* Launchcraft design tokens.
+   Paper surfaces, blue-black ink, one stamp-blue accent. Status colours are reserved
+   for check results and never used decoratively. */
+@theme {
+  --color-paper: #f7f4ee;
+  --color-panel: #efeae0;
+  --color-sheet: #fffdf9;
+  --color-rule: #dcd4c5;
+  --color-rule-strong: #c4baa7;
+  --color-ink: #1b1e26;
+  --color-ink-2: #555b66;
+  --color-ink-3: #7a7f88;
+  --color-stamp: #2a45c2;
+  --color-stamp-ink: #1f3699;
+  --color-stamp-wash: #e6eaf9;
+  --color-pass: #2e6b3a;
+  --color-pass-wash: #e3eee2;
+  --color-fail: #a42a1f;
+  --color-fail-wash: #f6e2df;
+  --color-wait: #8c6512;
+  --color-wait-wash: #f3ead3;
+
+  --font-display: "Newsreader Variable", "Iowan Old Style", Georgia, serif;
+  --font-sans: "Public Sans Variable", ui-sans-serif, system-ui, sans-serif;
+
+  /* Type scale (roughly a 1.25 ratio, rounded to whole pixels) */
+  --text-2xs: 0.75rem;
+  --text-2xs--line-height: 1.1rem;
+  --text-xs: 0.8125rem;
+  --text-xs--line-height: 1.2rem;
+  --text-sm: 0.875rem;
+  --text-sm--line-height: 1.35rem;
+  --text-base: 1rem;
+  --text-base--line-height: 1.55rem;
+  --text-lg: 1.25rem;
+  --text-lg--line-height: 1.75rem;
+  --text-xl: 1.625rem;
+  --text-xl--line-height: 2.1rem;
+  --text-2xl: 2.125rem;
+  --text-2xl--line-height: 2.5rem;
+  --text-3xl: 3rem;
+  --text-3xl--line-height: 3.25rem;
+  --text-4xl: 4.25rem;
+  --text-4xl--line-height: 4.25rem;
+
+  --radius-xs: 2px;
+  --radius-sm: 4px;
+  --radius-md: 8px;
+
+  --shadow-sheet: 0 1px 0 rgb(27 30 38 / 0.04), 0 8px 24px -12px rgb(27 30 38 / 0.18);
+  --shadow-pop: 0 18px 48px -16px rgb(27 30 38 / 0.35);
+
+  --breakpoint-wide: 90rem;
+}
+
+:root {
+  color-scheme: light;
+}
+
+html {
+  background: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  font-feature-settings: "kern", "liga";
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  background: var(--color-paper);
+}
+
+.font-display {
+  font-family: var(--font-display);
+  font-optical-sizing: auto;
+  letter-spacing: -0.01em;
+}
+
+.tabular {
+  font-variant-numeric: tabular-nums lining-nums;
+}
+
+/* Visible, consistent keyboard focus everywhere. */
+:where(a, button, input, select, textarea, summary, [tabindex]):focus-visible {
+  outline: 2px solid var(--color-stamp);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+::selection {
+  background: var(--color-stamp-wash);
+  color: var(--color-ink);
+}
+
+dialog::backdrop {
+  background: rgb(27 30 38 / 0.42);
+}
+
+/* Perforated edge used by the launch docket. */
+.perforation {
+  height: 12px;
+  background-image: radial-gradient(circle at 6px 6px, var(--color-paper) 4px, transparent 4.5px);
+  background-size: 14px 12px;
+  background-repeat: repeat-x;
+}
+
+/* The stamp: slightly rotated, ink-bleed edge via a double border. */
+.stamp {
+  transform: rotate(-4deg);
+  border: 2.5px solid currentColor;
+  outline: 1px solid currentColor;
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+@keyframes stamp-in {
+  0% { transform: rotate(-4deg) scale(1.35); opacity: 0; }
+  60% { transform: rotate(-4deg) scale(0.96); opacity: 1; }
+  100% { transform: rotate(-4deg) scale(1); opacity: 1; }
+}
+.stamp-in {
+  animation: stamp-in 380ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+
+@keyframes pulse-line {
+  0%, 100% { opacity: 0.35; }
+  50% { opacity: 0.8; }
+}
+.skeleton {
+  background: var(--color-rule);
+  animation: pulse-line 1.6s ease-in-out infinite;
+  border-radius: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

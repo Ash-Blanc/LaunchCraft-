@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" role="img" aria-label="Night candle">
+<title>Night candle</title>
+<defs>
+<filter id="grain" x="0" y="0" width="100%" height="100%">
+<feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" seed="4"/>
+<feColorMatrix values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.09 0"/>
+</filter>
+</defs>
+<rect width="800" height="800" fill="#E9E1DD"/>
+<rect y="560" width="800" height="240" fill="#D5C9C3"/>
+<ellipse cx="400" cy="592" rx="150" ry="18.0" fill="#000" opacity="0.12"/><path d="M 400 248 C 386 225, 392 205, 400 190 C 408 205, 414 225, 400 248 Z" fill="#B2722E"/><line x1="400" y1="250" x2="400" y2="290" stroke="#231C22" stroke-width="4"/><rect x="280" y="280" width="240" height="300" fill="#B2722E" opacity="0.85"/><rect x="280" y="280" width="240" height="40" fill="#F4EEE8"/><rect x="320" y="390" width="160" height="110" fill="#F4EEE8"/><line x1="345" y1="430" x2="455" y2="430" stroke="#6B2C5C" stroke-width="5"/><line x1="360" y1="455" x2="440" y2="455" stroke="#231C22" stroke-width="2"/>
+<rect width="800" height="800" filter="url(#grain)"/>
+</svg>

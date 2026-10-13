@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" role="img" aria-label="Room mist">
+<title>Room mist</title>
+<defs>
+<filter id="grain" x="0" y="0" width="100%" height="100%">
+<feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" seed="4"/>
+<feColorMatrix values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.09 0"/>
+</filter>
+</defs>
+<rect width="800" height="800" fill="#E9E1DD"/>
+<rect y="560" width="800" height="240" fill="#D5C9C3"/>
+<ellipse cx="400" cy="592" rx="120" ry="14.399999999999999" fill="#000" opacity="0.12"/><rect x="372" y="170" width="56" height="60" fill="#231C22"/><rect x="428" y="186" width="34" height="14" fill="#231C22"/><path d="M 330 230 L 470 230 L 480 580 L 320 580 Z" fill="#F4EEE8" opacity="0.92"/><rect x="345" y="380" width="110" height="130" fill="#9BA383"/><circle cx="500" cy="180" r="4.0" fill="#231C22" opacity="0.4"/><circle cx="530" cy="170" r="3.4" fill="#231C22" opacity="0.4"/><circle cx="520" cy="205" r="2.8" fill="#231C22" opacity="0.4"/><circle cx="560" cy="190" r="2.2" fill="#231C22" opacity="0.4"/>
+<rect width="800" height="800" filter="url(#grain)"/>
+</svg>

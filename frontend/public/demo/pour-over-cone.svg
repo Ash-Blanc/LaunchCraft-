@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" role="img" aria-label="Pour over cone">
+<title>Pour over cone</title>
+<defs>
+<filter id="grain" x="0" y="0" width="100%" height="100%">
+<feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" seed="4"/>
+<feColorMatrix values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.09 0"/>
+</filter>
+</defs>
+<rect width="800" height="800" fill="#E4E1DA"/>
+<rect y="560" width="800" height="240" fill="#CFC9BD"/>
+<ellipse cx="400" cy="592" rx="160" ry="19.2" fill="#000" opacity="0.12"/><path d="M 300 460 L 300 570 Q 400 600 500 570 L 500 460 Z" fill="#EFE8DA"/><path d="M 250 230 L 550 230 L 450 450 L 350 450 Z" fill="#1F5F5B"/><line x1="290" y1="245" x2="350" y2="440" stroke="#EFE8DA" stroke-width="3" opacity="0.4"/><line x1="330" y1="245" x2="368" y2="440" stroke="#EFE8DA" stroke-width="3" opacity="0.4"/><line x1="370" y1="245" x2="386" y2="440" stroke="#EFE8DA" stroke-width="3" opacity="0.4"/><line x1="410" y1="245" x2="404" y2="440" stroke="#EFE8DA" stroke-width="3" opacity="0.4"/><line x1="450" y1="245" x2="422" y2="440" stroke="#EFE8DA" stroke-width="3" opacity="0.4"/><line x1="490" y1="245" x2="440" y2="440" stroke="#EFE8DA" stroke-width="3" opacity="0.4"/><rect x="300" y="450" width="200" height="16" fill="#22201C" opacity="0.7"/><ellipse cx="400" cy="230" rx="150" ry="20" fill="#22201C" opacity="0.45"/>
+<rect width="800" height="800" filter="url(#grain)"/>
+</svg>

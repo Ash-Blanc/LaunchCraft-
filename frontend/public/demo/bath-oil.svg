@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" role="img" aria-label="Bath oil">
+<title>Bath oil</title>
+<defs>
+<filter id="grain" x="0" y="0" width="100%" height="100%">
+<feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" seed="4"/>
+<feColorMatrix values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.09 0"/>
+</filter>
+</defs>
+<rect width="800" height="800" fill="#E9E1DD"/>
+<rect y="560" width="800" height="240" fill="#D5C9C3"/>
+<ellipse cx="400" cy="592" rx="110" ry="13.2" fill="#000" opacity="0.12"/><rect x="378" y="150" width="44" height="60" fill="#B2722E"/><path d="M 382 210 L 382 260 C 330 280, 320 300, 320 340 L 320 580 L 480 580 L 480 340 C 480 300, 470 280, 418 260 L 418 210 Z" fill="#9BA383" opacity="0.9"/><rect x="340" y="400" width="120" height="120" fill="#F4EEE8"/><line x1="360" y1="440" x2="440" y2="440" stroke="#6B2C5C" stroke-width="5"/>
+<rect width="800" height="800" filter="url(#grain)"/>
+</svg>

@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" role="img" aria-label="Cedar matches">
+<title>Cedar matches</title>
+<defs>
+<filter id="grain" x="0" y="0" width="100%" height="100%">
+<feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" seed="4"/>
+<feColorMatrix values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.09 0"/>
+</filter>
+</defs>
+<rect width="800" height="800" fill="#E9E1DD"/>
+<rect y="560" width="800" height="240" fill="#D5C9C3"/>
+<ellipse cx="400" cy="592" rx="260" ry="31.2" fill="#000" opacity="0.12"/><rect x="170" y="420" width="300" height="160" fill="#6B2C5C"/><rect x="170" y="420" width="300" height="20" fill="#B2722E"/><circle cx="320" cy="505" r="40" fill="none" stroke="#F4EEE8" stroke-width="4"/><g transform="rotate(-60 560 560)"><rect x="556" y="250" width="8" height="310" fill="#B2722E"/><ellipse cx="560" cy="250" rx="9" ry="14" fill="#231C22"/></g><g transform="rotate(-51 560 560)"><rect x="556" y="250" width="8" height="310" fill="#B2722E"/><ellipse cx="560" cy="250" rx="9" ry="14" fill="#231C22"/></g><g transform="rotate(-42 560 560)"><rect x="556" y="250" width="8" height="310" fill="#B2722E"/><ellipse cx="560" cy="250" rx="9" ry="14" fill="#231C22"/></g><g transform="rotate(-33 560 560)"><rect x="556" y="250" width="8" height="310" fill="#B2722E"/><ellipse cx="560" cy="250" rx="9" ry="14" fill="#231C22"/></g><g transform="rotate(-24 560 560)"><rect x="556" y="250" width="8" height="310" fill="#B2722E"/><ellipse cx="560" cy="250" rx="9" ry="14" fill="#231C22"/></g>
+<rect width="800" height="800" filter="url(#grain)"/>
+</svg>
