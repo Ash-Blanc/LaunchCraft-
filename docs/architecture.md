@@ -27,7 +27,8 @@ Browser ──► Next.js (frontend/)  ──/api/* rewrite──►  FastAPI (b
 ```
 services/agent/base.py      StoreAgent protocol: generate_store, suggest, interpret_message
 services/agent/demo.py      DemoAgent: deterministic rules + sample catalogues
-services/agent/__init__.py  get_agent(settings) → DemoAgent (Phase 4 adds a live implementation)
+services/agent/live.py      LiveAgent: OpenAI-compatible JSON-mode chat; per-call demo fallback
+services/agent/__init__.py  get_agent(settings) → LiveAgent when AI_API_KEY is set, else DemoAgent
 services/proposals.py       accept/reject; the only path from assistant output to stored data
 ```
 
@@ -37,7 +38,9 @@ services/proposals.py       accept/reject; the only path from assistant output t
 
 **Stale proposals.** Each `update_product` carries a `before` snapshot. If the stored product no longer matches it, the proposal becomes `STALE` and nothing is written.
 
-**Labelling.** Every proposal records `source` (`demo` or `live`). The UI shows it, and the activity log attributes actions to "assistant (demo)".
+**Labelling.** Every proposal records `source` (`demo` or `live`). The UI shows it, and the activity log attributes actions to "assistant (demo)". The live agent reports its mode per call: when a provider outage or a validation failure makes it fall back to the demo rules, that response and that proposal are labelled `demo` — never `live`.
+
+**Trust boundary with a live model.** The model only ever proposes: its JSON is parsed into the same Pydantic schemas as user input (slugs, hex colors, Decimal prices, https-only images), `update_product` snapshots are built from the database rather than from model output, and an accepted proposal is applied by trusted code in one transaction. Provider failure, malformed JSON, or any schema violation degrades that single call to the deterministic demo rules.
 
 ## Order lifecycle (Phase 1, checkout UI in Phase 3)
 

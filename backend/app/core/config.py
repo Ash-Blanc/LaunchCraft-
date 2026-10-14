@@ -21,6 +21,7 @@ class Settings:
     paypal_env: str = "sandbox"
     ai_api_key: str = field(default="", repr=False)
     ai_model: str = ""
+    ai_base_url: str = "https://api.openai.com/v1"  # any OpenAI-compatible endpoint
     frontend_origin: str = "http://localhost:3000"
     http_timeout_seconds: float = 15.0
 
@@ -48,6 +49,7 @@ def get_settings() -> Settings:
         paypal_env=os.getenv("PAYPAL_ENV", "sandbox"),
         ai_api_key=os.getenv("AI_API_KEY", ""),
         ai_model=os.getenv("AI_MODEL", ""),
+        ai_base_url=os.getenv("AI_BASE_URL", "https://api.openai.com/v1"),
         frontend_origin=os.getenv("FRONTEND_ORIGIN", "http://localhost:3000"),
         http_timeout_seconds=float(os.getenv("HTTP_TIMEOUT_SECONDS", "15")),
     )

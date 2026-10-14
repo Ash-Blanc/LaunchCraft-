@@ -22,7 +22,11 @@ class MessageIntent:
 
 
 class StoreAgent(Protocol):
-    mode: AgentMode
+    @property
+    def mode(self) -> AgentMode:
+        """Which assistant produced the LAST response — "live" downgrades to "demo"
+        for a call that fell back to the deterministic rules."""
+        ...
 
     def generate_store(self, brief: BusinessBrief) -> GeneratedDraft: ...
 
