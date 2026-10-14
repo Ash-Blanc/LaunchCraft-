@@ -11,10 +11,10 @@ From a business idea to a store ready to sell: an AI store-launch workspace with
 | 1 | Trusted backend core: money, validation, cart, order state machine, PayPal Orders v2 client, launch checks | Done |
 | 2 | Next.js workspace: onboarding, draft review, assistant panel, catalogue and brand editors, live preview, storefront, launch docket | **Done**, demo assistant only |
 | 3 | PayPal JS SDK buttons and a real sandbox end-to-end payment | Backend ready; storefront checkout button is disabled until this phase |
-| 4 | Live-model assistant with typed tools (demo mode stays as fallback) | Interface in place, not started |
+| 4 | Live-model assistant with typed tools (demo mode stays as fallback) | **Done** — any OpenAI-compatible provider; every call degrades to the demo rules, labelled honestly |
 | 5 | Polish, accessibility audit, clean-setup verification | Not started |
 
-**Checks run for this phase:** 84 backend tests pass; TypeScript, ESLint and `next build` are clean; a scripted headless-Chrome walkthrough (brief → draft → accept → suggest and apply → edit with validation → brand → launch checks → chat → storefront → cart, at desktop and phone widths) runs with no console errors. The presentation layer below was verified end to end against a live backend (draft → accept → workspace → storefront → launch checks → message routing → suggest and apply, all over HTTP).
+**Checks run for this phase:** 100 backend tests pass (84 core + 16 live-agent: provider request shape, JSON-mode parsing, schema-violation and outage fallbacks, snapshot integrity, end-to-end API with `source="live"`); TypeScript, ESLint and `next build` are clean; a scripted headless-Chrome walkthrough (brief → draft → accept → suggest and apply → edit with validation → brand → launch checks → chat → storefront → cart, at desktop and phone widths) runs with no console errors. The presentation layer below was verified end to end against a live backend (draft → accept → workspace → storefront → launch checks → message routing → suggest and apply, all over HTTP).
 
 ## Presentation layer (shadcn/ui + Magic UI + 21st.dev)
 
@@ -44,7 +44,7 @@ shadcn/ui is initialised in the frontend with **every token remapped onto the ho
 ## What is deliberately not working yet
 
 - **Checkout.** The cart's *Check out with PayPal* button is disabled with an explanation. No payment can be attempted, and none is ever shown as successful.
-- **The assistant is rule-based.** Every assistant surface is labelled *Demo mode*. Same input gives the same output, built from hand-written sample catalogues; no language model is called, even if `AI_API_KEY` is set. `/api/health` reports `ai_mode: "demo"` until Phase 4.
+- **The assistant without an API key is rule-based.** With no `AI_API_KEY`, every assistant surface is labelled *Demo mode*: same input gives the same output, built from hand-written sample catalogues, and `/api/health` reports `ai_mode: "demo"`. With a key, the live model takes over (`ai_mode: "live"`) — but every individual call still falls back to the demo rules if the provider is unreachable or returns anything that fails validation, and that call is labelled *Demo mode*, so nothing ever claims a source that didn't produce it.
 - **A store can't reach *Ready*** until PayPal Sandbox credentials are set and a sandbox payment has been captured and verified. That needs Phase 3.
 - **No publishing.** Launchcraft doesn't deploy stores anywhere.
 
