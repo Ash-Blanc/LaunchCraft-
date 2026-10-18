@@ -97,9 +97,10 @@ export function useCart(storeId: string, persist = true) {
   }, [lines, commit]);
 
   const remove = useCallback((productId: string) => commit(lines.filter((l) => l.productId !== productId)), [lines, commit]);
+  const clear = useCallback(() => commit(EMPTY), [commit]);
 
   const count = lines.reduce((n, l) => n + l.quantity, 0);
-  return { lines, loaded: persist ? hydrated : true, add, setQuantity, remove, count };
+  return { lines, loaded: persist ? hydrated : true, add, setQuantity, remove, clear, count };
 }
 
 export type Cart = ReturnType<typeof useCart>;

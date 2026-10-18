@@ -6,6 +6,7 @@ import { estimateSubtotal, formatPrice } from "@/lib/money";
 import type { Brand, ProductInput } from "@/types/api";
 import type { Cart } from "./cart";
 import { MAX_QTY } from "./cart";
+import { CheckoutButton } from "./CheckoutButton";
 import { THEMES, themeVars } from "./theme";
 
 export interface StoreProduct extends ProductInput {
@@ -316,9 +317,10 @@ function ProductPage({ store, slug, link, cart }: { store: StoreLike; slug: stri
 function CartPage({ store, link, cart }: { store: StoreLike; link: RenderLink; cart: Cart }) {
   const byId = new Map(store.products.map((p) => [p.id, p]));
   const lines = cart.lines.map((l) => ({ ...l, product: byId.get(l.productId) }));
-  const valid = lines.filter((l) => l.product && l.product.available);
+  const valid = lines.filter((l): l is typeof lines[number] & { product: StoreProduct } =>
+    l.product != null && l.product.available);
   const problems = lines.filter((l) => !l.product || !l.product.available);
-  const subtotal = estimateSubtotal(valid.map((l) => ({ price: l.product!.price, quantity: l.quantity })), store.currency);
+  const subtotal = estimateSubtotal(valid.map((l) => ({ price: l.product.price, quantity: l.quantity })), store.currency);
 
   return (
     <section className="px-5 pt-10 @3xl:px-10">
@@ -366,14 +368,11 @@ function CartPage({ store, link, cart }: { store: StoreLike; link: RenderLink; c
             <p className="mt-2 text-xs leading-relaxed text-[color:var(--s-muted)]">
               The final total is calculated by the store&apos;s server from current prices when you check out.
             </p>
-            <button type="button" disabled
-              className="mt-5 h-12 w-full cursor-not-allowed bg-[color:var(--s-ink)] text-sm font-medium text-[color:var(--s-surface)] opacity-45"
-              aria-describedby="checkout-unavailable">
-              Check out with PayPal
-            </button>
-            <p id="checkout-unavailable" className="mt-2 text-xs leading-relaxed text-[color:var(--s-muted)]">
-              Checkout isn&apos;t connected yet. PayPal Sandbox payments arrive in the next build phase; your cart is kept until then.
-            </p>
+            <div className="mt-5">
+              <CheckoutButton storeId={store.id} currency={store.currency}
+                lines={valid.map((l) => ({ productId: l.product.id, quantity: l.quantity }))}
+                onCartCleared={cart.clear} />
+            </div>
             {problems.length > 0 && (
               <p className="mt-3 text-xs text-[color:var(--s-muted)]">
                 {problems.length} item{problems.length === 1 ? " needs" : "s need"} attention before checkout.
