@@ -1,8 +1,9 @@
 // Typed client for the Launchcraft API. Browser calls go to /api (proxied by Next);
 // server components call the backend directly via BACKEND_URL.
 import type {
-  ActivityEntry, AgentAction, AgentMessageResult, AgentResult, BusinessBrief, ChangesProposal,
-  DraftProposal, Health, LaunchReport, Product, ProductInput, Proposal, Store, StoreSummary, Brand,
+  ActivityEntry, AgentAction, AgentMessageResult, AgentResult, Brand, BusinessBrief,
+  ChangesProposal, CheckoutLine, CheckoutOrder, DraftProposal, Health, LaunchReport,
+  Product, ProductInput, Proposal, PublicConfig, Store, StoreSummary,
 } from "@/types/api";
 
 export class ApiError extends Error {
@@ -118,6 +119,20 @@ export const api = {
 
   launchChecks: (storeId: string) =>
     request<LaunchReport>("POST", `/stores/${encodeURIComponent(storeId)}/launch-checks`),
+
+  publicConfig: () => request<PublicConfig>("GET", "/config/public"),
+
+  /**
+   * Create a PayPal order on the backend. The server returns the order with
+   * `paypal_order_id` set; pass that into the PayPal SDK and on approval call
+   * `captureCheckout(paypal_order_id)` to finish the payment server-side.
+   */
+  startCheckout: (storeId: string, items: CheckoutLine[]) =>
+    request<CheckoutOrder>("POST", `/stores/${encodeURIComponent(storeId)}/checkout`, { items }),
+  captureCheckout: (paypalOrderId: string) =>
+    request<CheckoutOrder>("POST", `/checkout/${encodeURIComponent(paypalOrderId)}/capture`),
+  cancelCheckout: (paypalOrderId: string) =>
+    request<CheckoutOrder>("POST", `/checkout/${encodeURIComponent(paypalOrderId)}/cancel`),
 };
 
 export function errorMessage(e: unknown): string {

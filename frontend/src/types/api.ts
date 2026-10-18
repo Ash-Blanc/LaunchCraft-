@@ -148,3 +148,47 @@ export interface Health {
   ai_mode: AgentSource;
   ai_key_present: boolean;
 }
+
+/** Returned by `/api/health`. Browser-safe subset of backend config (no secrets). */
+export interface PublicConfig {
+  paypal_client_id: string | null;
+  paypal_env: "sandbox";
+}
+
+export const ORDER_STATUSES = [
+  "PAYPAL_CREATED", "CAPTURING", "COMPLETED", "FAILED", "CANCELLED",
+] as const;
+export type OrderStatus = typeof ORDER_STATUSES[number];
+
+export interface OrderItem {
+  product_id: string;
+  slug: string;
+  name: string;
+  unit_price: string;
+  quantity: number;
+  line_total: string;
+}
+
+/** Returned from /checkout and the capture/cancel endpoints. */
+export interface CheckoutOrder {
+  id: string;
+  store_id: string;
+  status: OrderStatus;
+  currency: string;
+  total: string;
+  items: OrderItem[];
+  paypal_order_id: string | null;
+  paypal_capture_id: string | null;
+  captured_amount: string | null;
+  failure_reason: string | null;
+  /** Always true — confirmed by the backend's paypal_env guard. */
+  sandbox: true;
+  created_at: string;
+  updated_at: string;
+}
+
+/** Cart line sent to /checkout. Server re-prices from current product data — nothing trusted from the client here. */
+export interface CheckoutLine {
+  product_id: string;
+  quantity: number;
+}
