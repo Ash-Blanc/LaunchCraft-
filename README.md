@@ -10,7 +10,7 @@ From a business idea to a store ready to sell: an AI store-launch workspace with
 |---|---|---|
 | 1 | Trusted backend core: money, validation, cart, order state machine, PayPal Orders v2 client, launch checks | Done |
 | 2 | Next.js workspace: onboarding, draft review, assistant panel, catalogue and brand editors, live preview, storefront, launch docket | **Done**, demo assistant only |
-| 3 | PayPal JS SDK buttons and a real sandbox end-to-end payment | Backend ready; storefront checkout button is disabled until this phase |
+| 3 | PayPal JS SDK buttons and a real sandbox end-to-end payment | **Done** — Smart Buttons call the existing create / capture / cancel routes; cart clears on completion; orders are labelled `source: "PAYPAL_CREATED"` until verified |
 | 4 | Live-model assistant with typed tools (demo mode stays as fallback) | Interface in place, not started |
 | 5 | Polish, accessibility audit, clean-setup verification | Not started |
 
@@ -39,13 +39,13 @@ shadcn/ui is initialised in the frontend with **every token remapped onto the ho
 - **Brand editor.** Name, tagline, five visual directions, three colours, with a contrast warning.
 - **Live preview.** Clickable storefront at desktop or phone width. Shows unsaved edits as you type, and jumps to the product you're editing.
 - **Storefront** at `/store/{id}`. Five genuinely different looks rendered from validated configuration by trusted React components. Includes home, product pages, cart with an estimated subtotal, and empty and error states.
+- **Checkout.** PayPal Smart Buttons at `/store/{id}/cart` drive the existing `/api/stores/{id}/checkout`, `/api/checkout/{order_id}/capture` and `/api/checkout/{order_id}/cancel` routes. The cart clears on capture; every order is verified server-side (status, captured amount and currency must all match the server-computed total) before the success label is shown. Nothing the browser sends is trusted for the total.
 - **Launch docket.** Records each check with evidence and stamps the store *Ready* or *Not ready*. One check loads every product page from the running storefront and confirms it renders.
 
 ## What is deliberately not working yet
 
-- **Checkout.** The cart's *Check out with PayPal* button is disabled with an explanation. No payment can be attempted, and none is ever shown as successful.
 - **The assistant is rule-based.** Every assistant surface is labelled *Demo mode*. Same input gives the same output, built from hand-written sample catalogues; no language model is called, even if `AI_API_KEY` is set. `/api/health` reports `ai_mode: "demo"` until Phase 4.
-- **A store can't reach *Ready*** until PayPal Sandbox credentials are set and a sandbox payment has been captured and verified. That needs Phase 3.
+- **A store can't reach *Ready*** until `PAYPAL_CLIENT_ID` + `PAYPAL_CLIENT_SECRET` are set and a sandbox payment has been captured and verified (Phase 1's launch check): the storefront works without them, but the launch docket stays *Not ready*.
 - **No publishing.** Launchcraft doesn't deploy stores anywhere.
 
 ## Run it (Windows PowerShell)

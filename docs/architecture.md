@@ -39,7 +39,7 @@ services/proposals.py       accept/reject; the only path from assistant output t
 
 **Labelling.** Every proposal records `source` (`demo` or `live`). The UI shows it, and the activity log attributes actions to "assistant (demo)".
 
-## Order lifecycle (Phase 1, checkout UI in Phase 3)
+## Order lifecycle (Phase 1)
 
 ```
 PAYPAL_CREATED ──capture──► CAPTURING ──verified──► COMPLETED
@@ -48,6 +48,16 @@ PAYPAL_CREATED ──capture──► CAPTURING ──verified──► COMPLETE
 ```
 
 Transitions are compare-and-set updates, so concurrent captures get `409`. PayPal calls send a deterministic `PayPal-Request-Id`, so retries are deduplicated on PayPal's side too.
+
+## Checkout (Phase 3)
+
+PayPal Smart Buttons on the storefront create the order on our server, hand the resulting `paypal_order_id` to the SDK for the approval UX, and on `onApprove` call `/api/checkout/{id}/capture` for the verification step. **The browser only ever carries product ids and quantities** — prices and totals are recomputed from the database at create-time and matched on capture. `verify_capture` requires:
+
+- PayPal status `COMPLETED`,
+- captured `currency_code == order.currency`,
+- captured `value == Decimal(order.total)`,
+
+or the order moves to `FAILED` with the reason. Replays of capture on a terminal order are idempotent and never re-charge. The `onCancel` path transitions `PAYPAL_CREATED → CANCELLED` so a buyer who backs out of the popup doesn't leave a dangling order.
 
 ## Frontend layout
 
